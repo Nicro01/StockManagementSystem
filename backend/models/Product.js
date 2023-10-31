@@ -1,14 +1,17 @@
 import db from "../config/database.js";
 
 export const getProducts = (result) => {
-  db.query("SELECT * FROM products", (err, results) => {
-    if (err) {
-      console.log(err);
-      result(err, null);
-    } else {
-      result(null, results);
+  db.query(
+    'SELECT products.*, departments.name AS department_name, DATE_FORMAT(products.created_at, "%Y-%m-%d") AS formatted_created_at, DATE_FORMAT(products.updated_at, "%Y-%m-%d") AS formatted_updated_at FROM products JOIN departments ON products.department_id = departments.id;',
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
     }
-  });
+  );
 };
 
 export const getProductById = (id, result) => {
@@ -42,6 +45,21 @@ export const updateProductById = (data, id, result) => {
       result(null, results);
     }
   });
+};
+
+export const updateProductStatus = (id, status, result) => {
+  db.query(
+    "UPDATE products SET status = ? WHERE id = ?",
+    [status, id],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
 };
 
 export const deleteProductById = (id, result) => {
