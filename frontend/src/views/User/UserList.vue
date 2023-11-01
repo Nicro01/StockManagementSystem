@@ -184,23 +184,22 @@
                       ></path>
                     </svg>
                   </button>
-                  <form>
-                    <div class="dropdown rounded-lg" v-show="user.isModalVisible">
-                      <div class="dropdown-content">
-                        <button
-                          v-if="user.status == 0"
-                          @click="updateProductStatus(user.id, 1)"
-                          type="submit"
-                        >
-                          Active
-                        </button>
-                        <button v-else @click="updateProductStatus(user.id, 0)" type="submit">
-                          Disabled
-                        </button>
-                        <button @click="close">Close</button>
-                      </div>
+
+                  <div class="dropdown rounded-lg" v-show="user.isModalVisible">
+                    <div class="dropdown-content">
+                      <button
+                        v-if="user.status == 0"
+                        @click="updateProductStatus(user.id, 1)"
+                        type="submit"
+                      >
+                        Active
+                      </button>
+                      <button v-else @click="updateProductStatus(user.id, 0)" type="submit">
+                        Disabled
+                      </button>
+                      <button @click="toggleModal(user)">Close</button>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -247,6 +246,11 @@ export default {
     async updateProductStatus(userId, newStatus) {
       const response = await axios.put(`http://localhost:5000/users/${userId}/status`, {
         status: newStatus
+      })
+      this.users.forEach((user) => {
+        if (user.id === userId) {
+          user.status = newStatus
+        }
       })
       console.log(response.data)
     }

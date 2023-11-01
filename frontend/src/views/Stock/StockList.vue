@@ -224,23 +224,22 @@
                       ></path>
                     </svg>
                   </button>
-                  <form>
-                    <div class="dropdown rounded-lg" v-show="product.isModalVisible">
-                      <div class="dropdown-content">
-                        <button
-                          v-if="product.status == 0"
-                          @click="updateProductStatus(product.id, 1)"
-                          type="submit"
-                        >
-                          Active
-                        </button>
-                        <button v-else @click="updateProductStatus(product.id, 0)" type="submit">
-                          Disabled
-                        </button>
-                        <button @click="close">Close</button>
-                      </div>
+
+                  <div class="dropdown rounded-lg" v-show="product.isModalVisible">
+                    <div class="dropdown-content">
+                      <button
+                        v-if="product.status == 0"
+                        @click="updateProductStatus(product.id, 1)"
+                        type="submit"
+                      >
+                        Active
+                      </button>
+                      <button v-else @click="updateProductStatus(product.id, 0)" type="submit">
+                        Disabled
+                      </button>
+                      <button @click="toggleModal(product)">Close</button>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -250,8 +249,6 @@
     </div>
   </div>
 </template>
-
-<script setup></script>
 
 <script>
 import axios from 'axios'
@@ -288,10 +285,19 @@ export default {
       product.isModalVisible = !product.isModalVisible
     },
     async updateProductStatus(productId, newStatus) {
-      const response = await axios.put(`http://localhost:5000/products/${productId}/status`, {
-        status: newStatus
-      })
-      console.log(response.data)
+      try {
+        const response = await axios.put(`http://localhost:5000/products/${productId}/status`, {
+          status: newStatus
+        })
+        this.products.forEach((product) => {
+          if (product.id === productId) {
+            product.status = newStatus
+          }
+        })
+        console.log(response.data)
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }

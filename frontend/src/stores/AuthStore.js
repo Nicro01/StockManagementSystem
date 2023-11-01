@@ -13,12 +13,16 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(userDetails) {
       try {
-        const response = await axios.post('http://localhost:5000/login', userDetails)
+        const response = await axios.post('http://localhost:5000/login', userDetails, {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+          }
+        })
         if (response.data.token) {
-          // Store the token and user in local storage
           localStorage.setItem('userToken', response.data.token)
           localStorage.setItem('user', JSON.stringify(response.data.user))
-          // Set the token in the Authorization header
+
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
           this.user = response.data.user
         } else {
@@ -29,10 +33,9 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     logout() {
-      // Remove the token and user from local storage
       localStorage.removeItem('userToken')
       localStorage.removeItem('user')
-      // Remove the Authorization header
+
       delete axios.defaults.headers.common['Authorization']
       this.user = null
     }
