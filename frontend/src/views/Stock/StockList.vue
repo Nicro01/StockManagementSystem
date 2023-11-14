@@ -53,7 +53,7 @@
             <tr>
               <th>ID</th>
               <th>Product</th>
-              <th>Department</th>
+              <th>Category</th>
               <th>In Stock</th>
               <th>Updated At</th>
               <th>Status</th>
@@ -178,7 +178,7 @@
                   </p>
                   <p
                     v-else
-                    class="max-w-[50%] mx-auto bg-green-100 text-red-800 text-xs font-medium py-0.5 rounded dark:bg-red-900 dark:text-red-300"
+                    class="max-w-[50%] mx-auto bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded dark:bg-red-900 dark:text-red-300"
                   >
                     Disabled
                   </p>
@@ -226,7 +226,7 @@
                   </button>
 
                   <div class="dropdown rounded-lg" v-show="product.isModalVisible">
-                    <div class="dropdown-content">
+                    <div class="dropdown-content" @blur="toggleModal(product)">
                       <button
                         v-if="product.status == 0"
                         @click="updateProductStatus(product.id, 1)"
@@ -237,6 +237,36 @@
                       <button v-else @click="updateProductStatus(product.id, 0)" type="submit">
                         Disabled
                       </button>
+                      <div class="flex">
+                        <button
+                          @click="updateProductQuantity(product.id, product.quantity + 1)"
+                          type="submit"
+                          class="bg-green-500 text-white shadow"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          @click="updateProductQuantity(product.id, product.quantity - 1)"
+                          type="submit"
+                          class="bg-red-500 hover:bg-red-300 text-white shadow"
+                        >
+                          <b>-</b>
+                        </button>
+                      </div>
+
                       <button @click="toggleModal(product)">Close</button>
                     </div>
                   </div>
@@ -283,6 +313,21 @@ export default {
     },
     toggleModal(product) {
       product.isModalVisible = !product.isModalVisible
+    },
+    async updateProductQuantity(productId, quantity) {
+      try {
+        const response = await axios.put(`http://localhost:5000/products/${productId}/quantity`, {
+          quantity: quantity
+        })
+        this.products.forEach((product) => {
+          if (product.id === productId) {
+            product.quantity = quantity
+          }
+        })
+        console.log(response.data)
+      } catch (error) {
+        console.error(error)
+      }
     },
     async updateProductStatus(productId, newStatus) {
       try {

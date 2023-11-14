@@ -62,6 +62,21 @@ export const updateProductStatus = (id, status, result) => {
   );
 };
 
+export const updateProductQuantity = (id, quantity, result) => {
+  db.query(
+    "UPDATE products SET quantity = ? WHERE id = ?",
+    [quantity, id],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+};
+
 export const deleteProductById = (id, result) => {
   db.query("DELETE FROM products WHERE id = ?", [id], (err, results) => {
     if (err) {

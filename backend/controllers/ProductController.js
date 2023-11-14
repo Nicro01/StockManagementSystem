@@ -5,6 +5,7 @@ import {
   updateProductById,
   deleteProductById,
   updateProductStatus,
+  updateProductQuantity,
 } from "../models/Product.js";
 
 export const showProducts = (req, res) => {
@@ -54,6 +55,18 @@ export const updateProductStatusController = (req, res) => {
   const id = req.params.id;
   const status = req.body.status;
   updateProductStatus(id, status, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+export const updateProductQuantityController = (req, res) => {
+  const id = req.params.id;
+  const quantity = req.body.quantity;
+  updateProductQuantity(id, quantity, (err, results) => {
     if (err) {
       res.send(err);
     } else {

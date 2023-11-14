@@ -9,15 +9,16 @@ import {
   updateProduct,
   deleteProduct,
   updateProductStatusController,
+  updateProductQuantityController,
 } from "../controllers/ProductController.js";
 
 import {
-  showDepartments,
-  showDepartmentById,
-  createDepartment,
-  updateDepartment,
-  deleteDepartment,
-} from "../controllers/DepartmentController.js";
+  showCategories,
+  showCategoryById,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from "../controllers/CategoryController.js";
 
 import {
   showUsers,
@@ -44,17 +45,19 @@ router.delete("/products/:id", deleteProduct);
 
 router.put("/products/:id/status", updateProductStatusController);
 
-//Department Routes
+router.put("/products/:id/quantity", updateProductQuantityController);
 
-router.get("/departments", showDepartments);
+//Category Routes
 
-router.get("/departments/:id", showDepartmentById);
+router.get("/categories", showCategories);
 
-router.post("/departments", createDepartment);
+router.get("/categorys/:id", showCategoryById);
 
-router.put("/departments/:id", updateDepartment);
+router.post("/categories", createCategory);
 
-router.delete("/departments/:id", deleteDepartment);
+router.put("/categorys/:id", updateCategory);
+
+router.delete("/categorys/:id", deleteCategory);
 
 //Users Routes
 

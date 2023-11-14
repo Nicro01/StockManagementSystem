@@ -163,7 +163,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://localhost:5000/departments')
+      .get('http://localhost:5000/categories')
       .then((response) => {
         console.log(response.data)
         this.departments = response.data
