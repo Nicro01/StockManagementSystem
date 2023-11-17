@@ -15,7 +15,6 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await axios.post('http://localhost:5000/login', userDetails, {
           headers: {
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
           }
         })
@@ -25,6 +24,7 @@ export const useAuthStore = defineStore('auth', {
 
           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
           this.user = response.data.user
+          console.log(response)
         } else {
           console.error('Login failed')
         }

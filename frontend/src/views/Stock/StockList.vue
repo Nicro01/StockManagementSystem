@@ -294,7 +294,7 @@ export default {
 
   mounted() {
     axios
-      .get('http://localhost:5000/products')
+      .get('http://152.67.44.184:5000/products', { withCredentials: true })
       .then((response) => {
         console.log(response.data)
         this.products = response.data
@@ -316,9 +316,12 @@ export default {
     },
     async updateProductQuantity(productId, quantity) {
       try {
-        const response = await axios.put(`http://localhost:5000/products/${productId}/quantity`, {
-          quantity: quantity
-        })
+        const response = await axios.put(
+          `http://152.67.44.184:5000/products/${productId}/quantity`,
+          {
+            quantity: quantity
+          }
+        )
         this.products.forEach((product) => {
           if (product.id === productId) {
             product.quantity = quantity
@@ -331,7 +334,7 @@ export default {
     },
     async updateProductStatus(productId, newStatus) {
       try {
-        const response = await axios.put(`http://localhost:5000/products/${productId}/status`, {
+        const response = await axios.put(`http://152.67.44.184:5000/products/${productId}/status`, {
           status: newStatus
         })
         this.products.forEach((product) => {
