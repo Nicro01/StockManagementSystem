@@ -11,7 +11,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://localhost:5000/products')
+      .get('http://152.67.44.184:5000/products')
       .then((response) => {
         console.log(response.data)
         this.products = response.data
@@ -23,7 +23,7 @@ export default {
   methods: {
     deleteProduct(id) {
       axios
-        .delete(`http://localhost:5000/products/${id}`)
+        .delete(`http://152.67.44.184:5000/products/${id}`)
         .then((response) => {
           console.log(response.data)
           window.location.href = '/stock'
