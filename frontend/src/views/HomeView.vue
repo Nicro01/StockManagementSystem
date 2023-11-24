@@ -97,3 +97,31 @@
     </div>
   </section>
 </template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'HomeView',
+  data() {
+    return {
+      isAuthenticated: false
+    }
+  },
+  methods: {
+    async test() {
+      try {
+        const response = await axios.get('http://129.148.21.216/api/posts')
+        if (response.status === 200) {
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  mounted() {
+    this.test()
+  }
+}
+</script>
