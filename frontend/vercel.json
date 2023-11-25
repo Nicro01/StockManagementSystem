@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/HomeView.vue" },
+    { "source": "/stock", "destination": "/Stock/StockView.vue" },
+    { "source": "/stock-create", "destination": "/Stock/StockCreateView.vue" },
+    { "source": "/stock-edit/:id", "destination": "/Stock/StockEditView.vue" },
+    { "source": "/stock-list", "destination": "/Stock/StockList.vue" },
+    { "source": "/users", "destination": "/User/UserList.vue" },
+    { "source": "/login", "destination": "/Auth/LoginView.vue" }
+  ]
+}
