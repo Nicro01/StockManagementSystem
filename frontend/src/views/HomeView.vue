@@ -111,7 +111,7 @@ export default {
   methods: {
     async test() {
       try {
-        const response = await axios.get('http://129.148.21.216/api/posts')
+        const response = await axios.get('http://tmktlondrina.com.br/api/posts')
         if (response.status === 200) {
           console.log(response.data)
         }
