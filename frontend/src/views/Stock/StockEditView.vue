@@ -148,9 +148,9 @@ export default {
     const product = response.data
     this.name = product.name
     this.description = product.description
-    this.value = product.value.toString()
+    this.value = product.price.toString()
     this.quantity = product.quantity.toString()
-    this.photo = product.photo
+    this.photo = product.image
     const previewContainer = document.getElementById('preview')
     previewContainer.innerHTML = ''
     const image = new Image()
@@ -164,9 +164,9 @@ export default {
       const response = await axios.put(`https://tmktlondrina.com.br/api/products/${productId}`, {
         name: this.name,
         description: this.description,
-        value: parseFloat(this.value),
+        price: parseFloat(this.value),
         quantity: parseInt(this.quantity),
-        photo: this.photo
+        image: this.photo
       })
       console.log(response.data)
       window.location.href = '/stock'
