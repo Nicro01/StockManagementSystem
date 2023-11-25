@@ -1,6 +1,8 @@
 <template>
   <div class="RouterLink-container w-full flex justify-center items-center fixed bottom-10">
-    <div class="bg-amber-300 mx-auto flex gap-12 px-10 py-3 rounded-lg">
+    <div
+      class="bg-amber-300 mx-auto flex gap-12 px-10 py-3 rounded-lg max-w-[90%] overflow-x-auto sm:overflow-hidden sm:max-w-none"
+    >
       <RouterLink to="/">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -89,6 +91,28 @@
           />
         </svg>
       </RouterLink>
+
+      <a
+        v-if="isAuthenticated"
+        :style="{ display: isAuthenticated ? 'block' : 'none' }"
+        @click.prevent="logout"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+          :class="[getClass('/logout'), { 'disabled-link': !isAuthenticated }]"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+          />
+        </svg>
+      </a>
     </div>
   </div>
   <div
@@ -135,6 +159,10 @@ export default {
     useAuthStore()
   },
   methods: {
+    logout() {
+      useAuthStore().logout()
+      window.location.href = '/login'
+    },
     getClass(path) {
       return {
         'w-6 h-6 font-bold text-[#8635FC] hover:translate-y-[-2px] duration-200':

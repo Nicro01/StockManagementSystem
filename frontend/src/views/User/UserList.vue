@@ -132,13 +132,13 @@
                 <div class="text-center">
                   <p
                     v-if="user.status === 1"
-                    class="max-w-[30%] mx-auto bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+                    class="sm:max-w-[30%] mx-auto bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded"
                   >
                     Active
                   </p>
                   <p
                     v-else
-                    class="max-w-[30%] mx-auto bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded dark:bg-red-900 dark:text-red-300"
+                    class="sm:max-w-[30%] mx-auto bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded"
                   >
                     Disabled
                   </p>
@@ -187,17 +187,19 @@
 
                   <div class="dropdown rounded-lg" v-show="user.isModalVisible">
                     <div class="dropdown-content">
-                      <button
-                        v-if="user.status == 0"
-                        @click="updateProductStatus(user.id, 1)"
-                        type="submit"
-                      >
-                        Active
-                      </button>
-                      <button v-else @click="updateProductStatus(user.id, 0)" type="submit">
-                        Disabled
-                      </button>
-                      <button @click="toggleModal(user)">Close</button>
+                      <div class="dropdown-body rounded-md sm:rounded-none">
+                        <button
+                          v-if="user.status == 0"
+                          @click="updateProductStatus(user.id, 1)"
+                          type="submit"
+                        >
+                          Active
+                        </button>
+                        <button v-else @click="updateProductStatus(user.id, 0)" type="submit">
+                          Disabled
+                        </button>
+                        <button @click="toggleModal(user)">Close</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -266,6 +268,24 @@ export default {
   width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .dropdown-content {
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    padding: 30%;
+    background: #3e3e3e66;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .dropdown-body {
+    height: auto;
+    background-color: #f1f1f1;
+  }
 }
 
 .dropdown-content button {

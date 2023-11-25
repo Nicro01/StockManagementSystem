@@ -159,13 +159,13 @@
                 <div class="text-center">
                   <p
                     v-if="product.status === 1"
-                    class="sm:max-w-[50%] mx-auto bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded"
+                    class="sm:max-w-[30%] mx-auto bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded"
                   >
                     Active
                   </p>
                   <p
                     v-else
-                    class="sm:max-w-[50%] mx-auto bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded"
+                    class="sm:max-w-[30%] mx-auto bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded"
                   >
                     Disabled
                   </p>

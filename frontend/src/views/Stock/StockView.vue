@@ -44,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <div class="w-[70%] mx-auto mt-5 flex flex-col">
+  <div class="w-[85%] sm:w-[70%] mx-auto mt-5 flex flex-col">
     <h2 class="text-center text-[#3e3e3e] text-4xl font-bold mt-5">Products</h2>
 
     <div class="p-10 mt-5 w-[100%] grid sm:grid-cols-3 grid-cols-1 gap-12">
