@@ -163,7 +163,7 @@ export default {
   },
   mounted() {
     axios
-      .get('https://tmktlondrina.com.br/api/categories')
+      .get('https://tmktlondrina.com.br/api/departments')
       .then((response) => {
         console.log(response.data)
         this.departments = response.data
