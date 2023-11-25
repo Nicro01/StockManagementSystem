@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(userDetails) {
       try {
-        const response = await axios.post('http://152.67.44.184:5000/login', userDetails, {
+        const response = await axios.post('https://tmktlondrina.com.br/api/login', userDetails, {
           headers: {
             'Content-Type': 'application/json'
           }

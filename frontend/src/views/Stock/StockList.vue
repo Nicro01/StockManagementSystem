@@ -294,7 +294,7 @@ export default {
 
   mounted() {
     axios
-      .get('http://152.67.44.184:5000/products', { withCredentials: true })
+      .get('https://tmktlondrina.com.br/api/products', { withCredentials: true })
       .then((response) => {
         console.log(response.data)
         this.products = response.data
@@ -317,7 +317,7 @@ export default {
     async updateProductQuantity(productId, quantity) {
       try {
         const response = await axios.put(
-          `http://152.67.44.184:5000/products/${productId}/quantity`,
+          `https://tmktlondrina.com.br/api/products/${productId}/quantity`,
           {
             quantity: quantity
           }
@@ -334,7 +334,7 @@ export default {
     },
     async updateProductStatus(productId, newStatus) {
       try {
-        const response = await axios.put(`http://152.67.44.184:5000/products/${productId}/status`, {
+        const response = await axios.put(`https://tmktlondrina.com.br/api/products/${productId}/status`, {
           status: newStatus
         })
         this.products.forEach((product) => {

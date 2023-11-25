@@ -163,7 +163,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://152.67.44.184:5000/categories')
+      .get('https://tmktlondrina.com.br/api/categories')
       .then((response) => {
         console.log(response.data)
         this.departments = response.data
@@ -175,7 +175,7 @@ export default {
   methods: {
     async createProducts() {
       const now = new Date().toISOString().slice(0, 19).replace('T', ' ')
-      const response = await axios.post('http://152.67.44.184:5000/products', {
+      const response = await axios.post('https://tmktlondrina.com.br/api/products', {
         name: this.name,
         description: this.description,
         department_id: this.department_id,

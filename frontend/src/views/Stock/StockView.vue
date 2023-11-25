@@ -11,7 +11,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://152.67.44.184:5000/products')
+      .get('https://tmktlondrina.com.br/api/products')
       .then((response) => {
         console.log(response.data)
         this.products = response.data
@@ -23,7 +23,7 @@ export default {
   methods: {
     deleteProduct(id) {
       axios
-        .delete(`http://152.67.44.184:5000/products/${id}`)
+        .delete(`https://tmktlondrina.com.br/api/products/${id}`)
         .then((response) => {
           console.log(response.data)
           window.location.href = '/stock'

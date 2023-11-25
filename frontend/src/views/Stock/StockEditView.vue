@@ -144,7 +144,7 @@ export default {
   },
   async created() {
     const productId = this.$route.params.id
-    const response = await axios.get(`http://152.67.44.184:5000/products/${productId}`)
+    const response = await axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
     const product = response.data
     this.name = product.name
     this.description = product.description
@@ -161,7 +161,7 @@ export default {
   methods: {
     async updateProduct() {
       const productId = this.$route.params.id
-      const response = await axios.put(`http://152.67.44.184:5000/products/${productId}`, {
+      const response = await axios.put(`https://tmktlondrina.com.br/api/products/${productId}`, {
         name: this.name,
         description: this.description,
         value: parseFloat(this.value),

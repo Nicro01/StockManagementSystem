@@ -223,7 +223,7 @@ export default {
 
   mounted() {
     axios
-      .get('http://152.67.44.184:5000/users')
+      .get('https://tmktlondrina.com.br/api/users')
       .then((response) => {
         console.log(response.data)
         this.users = response.data
@@ -244,7 +244,7 @@ export default {
       product.isModalVisible = !product.isModalVisible
     },
     async updateProductStatus(userId, newStatus) {
-      const response = await axios.put(`http://152.67.44.184:5000/users/${userId}/status`, {
+      const response = await axios.put(`https://tmktlondrina.com.br/api/users/${userId}/status`, {
         status: newStatus
       })
       this.users.forEach((user) => {
