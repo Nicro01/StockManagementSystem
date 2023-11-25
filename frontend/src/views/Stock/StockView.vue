@@ -57,7 +57,7 @@ export default {
         </div>
         <div
           v-bind:class="{ grayscale: product.status == '0' }"
-          class="w-70 h-96 bg-amber-300 p-3 flex flex-col gap-1 rounded-3xl self-center my-3 shadow-lg shadow-amber-200"
+          class="w-full sm:w-70 h-96 bg-amber-300 p-3 flex flex-col gap-1 rounded-3xl self-center my-3 shadow-lg shadow-amber-200"
         >
           <div
             class="duration-500 rounded-2xl h-56 bg-gradient-to-bl from-black via-orange-900 to-indigo-600"

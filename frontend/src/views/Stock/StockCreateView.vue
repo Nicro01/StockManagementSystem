@@ -47,7 +47,7 @@
         </div>
 
         <select
-          class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+          class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none rounded"
           v-model="department_id"
         >
           <option value="">Select a department</option>
@@ -62,7 +62,7 @@
 
         <button
           type="submit"
-          class="btn border py-2 px-4 font-semibold cursor-pointer text-white bg-amber-500 hover:bg-amber-600 duration-100"
+          class="btn border py-2 px-4 font-semibold cursor-pointer rounded text-white bg-amber-500 hover:bg-amber-600 duration-100"
         >
           Register
         </button>
@@ -154,7 +154,7 @@
     </div>
     <div
       v-if="isMobile()"
-      class="w-72 h-full bg-amber-300 p-3 flex flex-col gap-1 rounded-3xl self-center my-3 shadow-lg shadow-amber-200"
+      class="w-72 h-full bg-amber-300 p-3 flex flex-col gap-1 rounded-3xl self-center mt-3 mb-10 shadow-lg shadow-amber-200"
     >
       <div
         id="preview"
