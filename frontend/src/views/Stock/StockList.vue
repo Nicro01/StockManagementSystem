@@ -314,12 +314,12 @@ export default {
         const response = await axios.put(
           `https://tmktlondrina.com.br/api/products/${productId}/quantity`,
           {
-            quantity: this.quantity
+            quantity: quantity
           }
         )
         this.products.forEach((product) => {
           if (product.id === productId) {
-            product.quantity = this.quantity
+            product.quantity = quantity
           }
         })
         console.log(response.data)
