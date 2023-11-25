@@ -8,19 +8,6 @@
         >
           Stock Management
         </p>
-        <div
-          class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded"
-        >
-          <p>Sort By:</p>
-          <select
-            aria-label="select"
-            class="focus:text-amber-600 outline-none focus:outline-none bg-transparent ml-1"
-          >
-            <option class="text-sm text-amber-800 outline-none">Latest</option>
-            <option class="text-sm text-amber-800 outline-none">Oldest</option>
-            <option class="text-sm text-amber-800 outline-none">Latest</option>
-          </select>
-        </div>
       </div>
     </div>
     <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
@@ -48,12 +35,12 @@
         </button>
       </div>
       <div class="mt-7 overflow-x-auto">
-        <table class="w-full whitespace-nowrap" id="tbl_exporttable_to_xls">
+        <table class="w-full whitespace-nowrap overflow-x-auto" id="tbl_exporttable_to_xls">
           <thead>
-            <tr>
+            <tr class="text-[0.7rem]">
               <th>ID</th>
               <th>Product</th>
-              <th>Category</th>
+              <th>Department</th>
               <th>In Stock</th>
               <th>Updated At</th>
               <th>Status</th>
@@ -120,7 +107,7 @@
                     ></circle>
                   </svg>
                   <p class="text-sm leading-none text-gray-600">
-                    {{ product.department_name }}
+                    {{ product.department_id }}
                   </p>
                 </div>
               </td>
@@ -172,13 +159,13 @@
                 <div class="text-center">
                   <p
                     v-if="product.status === 1"
-                    class="max-w-[50%] mx-auto bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+                    class="sm:max-w-[50%] mx-auto bg-green-100 text-green-800 text-xs font-medium py-0.5 rounded"
                   >
                     Active
                   </p>
                   <p
                     v-else
-                    class="max-w-[50%] mx-auto bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded dark:bg-red-900 dark:text-red-300"
+                    class="sm:max-w-[50%] mx-auto bg-red-100 text-red-800 text-xs font-medium py-0.5 rounded"
                   >
                     Disabled
                   </p>
@@ -227,47 +214,55 @@
 
                   <div class="dropdown rounded-lg" v-show="product.isModalVisible">
                     <div class="dropdown-content" @blur="toggleModal(product)">
-                      <button
-                        v-if="product.status == 0"
-                        @click="updateProductStatus(product.id, 1)"
-                        type="submit"
-                      >
-                        Active
-                      </button>
-                      <button v-else @click="updateProductStatus(product.id, 0)" type="submit">
-                        Disabled
-                      </button>
-                      <div class="flex">
+                      <div class="dropdown-body rounded-md sm:rounded-none">
                         <button
-                          @click="updateProductQuantity(product.id, product.quantity + 1)"
+                          v-if="product.status == 0"
+                          @click="updateProductStatus(product.id, 1)"
                           type="submit"
-                          class="bg-green-500 text-white shadow"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-4 w-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                            />
-                          </svg>
+                          Active
                         </button>
                         <button
-                          @click="updateProductQuantity(product.id, product.quantity - 1)"
+                          v-else
+                          @click="updateProductStatus(product.id, 0)"
                           type="submit"
-                          class="bg-red-500 hover:bg-red-300 text-white shadow"
+                          class="rounded-md sm:rounded-none"
                         >
-                          <b>-</b>
+                          Disabled
+                        </button>
+                        <div class="flex">
+                          <button
+                            @click="updateProductQuantity(product.id, product.quantity + 1)"
+                            type="submit"
+                            class="bg-green-500 text-white shadow"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            @click="updateProductQuantity(product.id, product.quantity - 1)"
+                            type="submit"
+                            class="bg-red-500 hover:bg-red-300 text-white shadow"
+                          >
+                            <b>-</b>
+                          </button>
+                        </div>
+                        <button @click="toggleModal(product)" class="rounded-md sm:rounded-none">
+                          Close
                         </button>
                       </div>
-
-                      <button @click="toggleModal(product)">Close</button>
                     </div>
                   </div>
                 </div>
@@ -319,12 +314,12 @@ export default {
         const response = await axios.put(
           `https://tmktlondrina.com.br/api/products/${productId}/quantity`,
           {
-            quantity: quantity
+            quantity: this.quantity
           }
         )
         this.products.forEach((product) => {
           if (product.id === productId) {
-            product.quantity = quantity
+            product.quantity = this.quantity
           }
         })
         console.log(response.data)
@@ -334,9 +329,12 @@ export default {
     },
     async updateProductStatus(productId, newStatus) {
       try {
-        const response = await axios.put(`https://tmktlondrina.com.br/api/products/${productId}/status`, {
-          status: newStatus
-        })
+        const response = await axios.put(
+          `https://tmktlondrina.com.br/api/products/${productId}/status`,
+          {
+            status: newStatus
+          }
+        )
         this.products.forEach((product) => {
           if (product.id === productId) {
             product.status = newStatus
@@ -358,6 +356,24 @@ export default {
   width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  .dropdown-content {
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    padding: 30%;
+    background: #3e3e3e66;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .dropdown-body {
+    height: auto;
+    background-color: #f1f1f1;
+  }
 }
 
 .dropdown-content button {

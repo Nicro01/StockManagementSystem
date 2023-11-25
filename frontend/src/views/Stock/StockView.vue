@@ -47,7 +47,7 @@ export default {
   <div class="w-[70%] mx-auto mt-5 flex flex-col">
     <h2 class="text-center text-[#3e3e3e] text-4xl font-bold mt-5">Products</h2>
 
-    <div class="p-10 mt-5 w-[100%] grid grid-cols-3 gap-12">
+    <div class="p-10 mt-5 w-[100%] grid sm:grid-cols-3 grid-cols-1 gap-12">
       <div v-for="product in products" v-bind:key="product.id" class="relative">
         <div
           v-if="product.status == 0"
@@ -65,14 +65,16 @@ export default {
             <img :src="product.image" alt="" class="object-cover rounded-xl h-full w-full" />
           </div>
           <div class="flex flex-col gap-4 mt-2">
-            <div class="flex flex-row justify-between mb-4">
-              <div class="flex flex-col max-w-[100px]">
-                <span class="text-xl text-gray-700 truncate font-bold" id="productName">{{
-                  product.name
-                }}</span>
+            <div class="flex sm:flex-row justify-between">
+              <div class="flex flex-col max-w-full sm:max-w-[100px]">
+                <span
+                  class="text-md sm:text-xl text-gray-700 truncate font-bold"
+                  id="productName"
+                  >{{ product.name }}</span
+                >
                 <p class="text-xs text-gray-500">ID: {{ product.id }}</p>
               </div>
-              <div class="flex flex-col max-w-[100px] text-end">
+              <div class="flex flex-col max-w-full sm:max-w-[100px] text-end">
                 <span class="font-bold text-red-600 text-xm mt-2" id="productValue">{{
                   '$' + product.price
                 }}</span>
