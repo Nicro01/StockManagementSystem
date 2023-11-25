@@ -179,7 +179,7 @@ export default {
         name: this.name,
         description: this.description,
         department_id: this.department_id,
-        value: parseFloat(this.value),
+        price: parseFloat(this.value),
         quantity: parseInt(this.quantity),
         photo: this.photo,
         status: 1,
