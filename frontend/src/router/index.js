@@ -6,6 +6,7 @@ import EditStock from '../views/Stock/StockEditView.vue'
 import ListStock from '../views/Stock/StockList.vue'
 import UsersView from '../views/User/UserList.vue'
 import LoginView from '../views/Auth/LoginView.vue'
+import RegisterView from '../views/Auth/RegisterView.vue'
 import { useAuthStore } from '../stores/AuthStore.js'
 
 const router = createRouter({
@@ -43,7 +44,12 @@ const router = createRouter({
     {
       path: '/users',
       name: 'UsersView',
-      component: UsersView,
+      component: UsersView
+    },
+    {
+      path: '/register',
+      name: 'RegisterView',
+      component: RegisterView,
       meta: { requiresAuth: true, requiresRole: 'admin' }
     },
     {

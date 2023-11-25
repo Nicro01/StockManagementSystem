@@ -6,6 +6,7 @@
     { "source": "/stock-edit/:id", "destination": "/Stock/StockEditView.vue" },
     { "source": "/stock-list", "destination": "/Stock/StockList.vue" },
     { "source": "/users", "destination": "/User/UserList.vue" },
-    { "source": "/login", "destination": "/Auth/LoginView.vue" }
+    { "source": "/login", "destination": "/Auth/LoginView.vue" },
+    { "source": "/register", "destination": "/Auth/RegisterView.vue" }
   ]
 }
