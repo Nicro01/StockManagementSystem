@@ -62,7 +62,7 @@ export default {
           <div
             class="duration-500 rounded-2xl h-56 bg-gradient-to-bl from-black via-orange-900 to-indigo-600"
           >
-            <img :src="product.photo" alt="" class="object-cover rounded-xl h-full w-full" />
+            <img :src="product.image" alt="" class="object-cover rounded-xl h-full w-full" />
           </div>
           <div class="flex flex-col gap-4 mt-2">
             <div class="flex flex-row justify-between mb-4">
@@ -74,7 +74,7 @@ export default {
               </div>
               <div class="flex flex-col max-w-[100px] text-end">
                 <span class="font-bold text-red-600 text-xm mt-2" id="productValue">{{
-                  '$' + product.value
+                  '$' + product.price
                 }}</span>
                 <p class="text-xs text-gray-500">{{ product.quantity }} in Stock</p>
               </div>
