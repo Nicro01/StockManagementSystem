@@ -294,7 +294,7 @@ export default {
 
   mounted() {
     axios
-      .get('https://tmktlondrina.com.br/api/products', { withCredentials: true })
+      .get('https://tmktlondrina.com.br/api/products')
       .then((response) => {
         console.log(response.data)
         this.products = response.data
