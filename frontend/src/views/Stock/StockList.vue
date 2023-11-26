@@ -295,7 +295,7 @@ export default {
       products: [],
       departments: [],
       isModalVisible: false,
-      isLandscape: window.matchMedia('(orientation: landscape)').matches
+      isLandscape: window.innerWidth > window.innerHeight
     }
   },
   created() {
@@ -335,7 +335,7 @@ export default {
       }
     },
     checkOrientation() {
-      this.isLandscape = window.matchMedia('(orientation: landscape)').matches
+      this.isLandscape = window.innerWidth > window.innerHeight
     },
     ExportToExcel(type, fn, dl) {
       var elt = document.getElementById('tbl_exporttable_to_xls')
