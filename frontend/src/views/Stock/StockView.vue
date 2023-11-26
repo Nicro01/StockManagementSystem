@@ -6,21 +6,25 @@ export default {
   data() {
     return {
       products: [],
-      showCart: false // add boolean property to control CartSideBar display
+      showCart: false
     }
   },
   mounted() {
-    axios
-      .get('https://tmktlondrina.com.br/api/products')
-      .then((response) => {
-        console.log(response.data)
-        this.products = response.data
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    this.fetchData()
+    setInterval(this.fetchData, 2000)
   },
   methods: {
+    fetchData() {
+      axios
+        .get('https://tmktlondrina.com.br/api/products')
+        .then((response) => {
+          console.log(response.data)
+          this.products = response.data
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
     deleteProduct(id) {
       axios
         .delete(`https://tmktlondrina.com.br/api/products/${id}`)
@@ -36,7 +40,6 @@ export default {
       window.location.href = '/stock-edit/' + id
     },
     toggleCart() {
-      // add method to toggle showCart property
       this.showCart = !this.showCart
     }
   }
