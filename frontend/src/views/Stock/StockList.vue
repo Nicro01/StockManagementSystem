@@ -306,27 +306,31 @@ export default {
   },
 
   mounted() {
-    axios
-      .get('https://tmktlondrina.com.br/api/products')
-      .then((response) => {
-        console.log(response.data)
-        this.products = response.data
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-
-    axios
-      .get('https://tmktlondrina.com.br/api/departments')
-      .then((response) => {
-        console.log(response.data)
-        this.departments = response.data
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    this.fetchData()
+    setInterval(this.fetchData, 2000)
   },
   methods: {
+    fetchData() {
+      axios
+        .get('https://tmktlondrina.com.br/api/products')
+        .then((response) => {
+          console.log(response.data)
+          this.products = response.data
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+
+      axios
+        .get('https://tmktlondrina.com.br/api/departments')
+        .then((response) => {
+          console.log(response.data)
+          this.departments = response.data
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
     isMobile() {
       if (screen.width <= 680) {
         return true

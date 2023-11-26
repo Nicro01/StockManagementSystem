@@ -251,8 +251,22 @@ export default {
         console.error(error)
       })
   },
-  created() {
-    this.getProduct()
+  async created() {
+    const productId = this.$route.params.id
+    const response = await axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
+    const product = response.data
+    this.name = product.name
+    this.description = product.description
+    this.value = product.price.toString()
+    this.department_id = product.department_id.toString()
+    this.quantity = product.quantity.toString()
+    this.photo = product.image
+    const previewContainer = document.getElementById('preview')
+    previewContainer.innerHTML = ''
+    const image = new Image()
+    image.src = this.photo
+    image.classList.add('object-cover', 'rounded-xl', 'h-full', 'w-full')
+    previewContainer.appendChild(image)
   },
   methods: {
     isMobile() {
@@ -262,26 +276,6 @@ export default {
         return false
       }
     },
-    async getProduct() {
-      const productId = this.$route.params.id
-      const response = await axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
-      const product = response.data
-      this.name = product.name
-      this.description = product.description
-      this.value = product.price.toString()
-      this.department_id = product.department_id.toString()
-      this.quantity = product.quantity.toString()
-      this.photo = product.image
-      const previewContainer = document.getElementById('preview')
-      previewContainer.innerHTML = ''
-      const image = new Image()
-      image.src = this.photo
-      image.classList.add('object-cover', 'rounded-xl', 'h-full', 'w-full')
-      previewContainer.appendChild(image)
-
-      setTimeout(this.getProduct, 2000)
-    },
-
     async updateProduct() {
       const productId = this.$route.params.id
       const response = await axios.put(`https://tmktlondrina.com.br/api/products/${productId}`, {
