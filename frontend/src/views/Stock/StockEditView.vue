@@ -251,9 +251,8 @@ export default {
         console.error(error)
       })
   },
-  async created() {
+  created() {
     this.getProduct()
-    setInterval(this.getProduct, 2000)
   },
   methods: {
     isMobile() {
@@ -265,7 +264,7 @@ export default {
     },
     async getProduct() {
       const productId = this.$route.params.id
-      const response = axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
+      const response = await axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
       const product = response.data
       this.name = product.name
       this.description = product.description
@@ -279,7 +278,10 @@ export default {
       image.src = this.photo
       image.classList.add('object-cover', 'rounded-xl', 'h-full', 'w-full')
       previewContainer.appendChild(image)
+
+      setTimeout(this.getProduct, 2000)
     },
+
     async updateProduct() {
       const productId = this.$route.params.id
       const response = await axios.put(`https://tmktlondrina.com.br/api/products/${productId}`, {
