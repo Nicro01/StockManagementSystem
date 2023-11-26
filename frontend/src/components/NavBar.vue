@@ -1,9 +1,15 @@
 <template>
   <div class="RouterLink-container w-full flex justify-center items-center fixed bottom-10">
     <div
-      class="bg-amber-300 mx-auto flex gap-12 px-10 py-3 rounded-lg max-w-[90%] overflow-x-auto sm:overflow-hidden sm:max-w-none"
+      class="bg-amber-300 mx-auto flex gap-12 px-10 py-3 rounded-lg max-w-[90%] overflow-visible sm:overflow-hidden sm:max-w-none"
     >
-      <RouterLink to="/">
+      <RouterLink
+        to="/"
+        class="flex justify-center"
+        @mouseover="showPopover['home'] = true"
+        @mouseleave="showPopover['home'] = false"
+      >
+        <Popover v-show="showPopover['home']" mensagem="Home" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
@@ -19,7 +25,14 @@
           ></path>
         </svg>
       </RouterLink>
-      <RouterLink to="/stock" :class="{ 'disabled-link': !isAuthenticated }">
+      <RouterLink
+        to="/stock"
+        class="flex justify-center"
+        :class="{ 'disabled-link': !isAuthenticated }"
+        @mouseover="showPopover['stock'] = true"
+        @mouseleave="showPopover['stock'] = false"
+      >
+        <Popover v-show="showPopover['stock']" mensagem="Stock" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -35,7 +48,14 @@
           />
         </svg>
       </RouterLink>
-      <RouterLink to="/stock-list" :class="{ 'disabled-link': !isAuthenticated }">
+      <RouterLink
+        to="/stock-list"
+        class="flex justify-center"
+        :class="{ 'disabled-link': !isAuthenticated }"
+        @mouseover="showPopover['stock-list'] = true"
+        @mouseleave="showPopover['stock-list'] = false"
+      >
+        <Popover v-show="showPopover['stock-list']" mensagem="Stock List" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -53,9 +73,13 @@
       </RouterLink>
       <RouterLink
         to="/stock-create"
+        class="flex justify-center"
         :class="{ 'disabled-link': !isAuthenticated }"
         @click.prevent="showModal"
+        @mouseover="showPopover['create'] = true"
+        @mouseleave="showPopover['create'] = false"
       >
+        <Popover v-show="showPopover['create']" mensagem="New Product" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -71,11 +95,16 @@
           />
         </svg>
       </RouterLink>
+
       <RouterLink
         to="/users"
+        class="flex justify-center"
         :class="{ 'disabled-link': !isAuthenticated }"
         @click.prevent="showModal"
+        @mouseover="showPopover['users'] = true"
+        @mouseleave="showPopover['users'] = false"
       >
+        <Popover v-show="showPopover['users']" mensagem="Users" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -94,9 +123,12 @@
 
       <a
         v-if="isAuthenticated"
-        :style="{ display: isAuthenticated ? 'block' : 'none' }"
         @click.prevent="logout"
+        class="flex justify-center"
+        @mouseover="showPopover['logout'] = true"
+        @mouseleave="showPopover['logout'] = false"
       >
+        <Popover v-show="showPopover['logout']" mensagem="Logout" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -140,11 +172,13 @@
 
 <script>
 import { useAuthStore } from '../stores/AuthStore.js'
+import Popover from './Popover.vue'
 
 export default {
   data() {
     return {
-      isModalVisible: false
+      isModalVisible: false,
+      showPopover: {}
     }
   },
   computed: {
@@ -174,7 +208,8 @@ export default {
     showModal() {
       this.isModalVisible = true
     }
-  }
+  },
+  components: { Popover }
 }
 </script>
 

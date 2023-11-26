@@ -37,7 +37,7 @@
       <div class="mt-7 overflow-x-auto">
         <table class="w-full whitespace-nowrap overflow-x-auto" id="tbl_exporttable_to_xls">
           <thead>
-            <tr class="text-[0.7rem]">
+            <tr class="text-[0.7rem] sm:text-sm">
               <th>ID</th>
               <th>Product</th>
               <th>Department</th>
@@ -106,8 +106,10 @@
                       stroke-linejoin="round"
                     ></circle>
                   </svg>
-                  <p class="text-sm leading-none text-gray-600">
-                    {{ product.department_id }}
+                  <p class="text-sm leading-none text-gray-600" v-if="departments.length">
+                    {{
+                      departments.find((department) => department.id === product.department_id).name
+                    }}
                   </p>
                 </div>
               </td>
@@ -150,8 +152,8 @@
                     />
                   </svg>
 
-                  <p class="text-sm leading-none text-gray-600">
-                    {{ product.formatted_updated_at }}
+                  <p class="text-sm leading-none text-gray-600 ms-2">
+                    {{ formatDate(product.updated_at) }}
                   </p>
                 </div>
               </td>
@@ -277,12 +279,14 @@
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   name: 'StockList',
   data() {
     return {
       products: [],
+      departments: [],
       isModalVisible: false
     }
   },
@@ -297,6 +301,16 @@ export default {
       .catch((error) => {
         console.error(error)
       })
+
+    axios
+      .get('https://tmktlondrina.com.br/api/departments')
+      .then((response) => {
+        console.log(response.data)
+        this.departments = response.data
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   },
   methods: {
     ExportToExcel(type, fn, dl) {
@@ -305,6 +319,9 @@ export default {
       return dl
         ? XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' })
         : XLSX.writeFile(wb, fn || 'RelatorioDeEstoque.' + (type || 'xlsx'))
+    },
+    formatDate(date) {
+      return moment(date).format('DD/MM/YYYY HH:mm')
     },
     toggleModal(product) {
       product.isModalVisible = !product.isModalVisible
