@@ -252,21 +252,8 @@ export default {
       })
   },
   async created() {
-    const productId = this.$route.params.id
-    const response = await axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
-    const product = response.data
-    this.name = product.name
-    this.description = product.description
-    this.value = product.price.toString()
-    this.department_id = product.department_id.toString()
-    this.quantity = product.quantity.toString()
-    this.photo = product.image
-    const previewContainer = document.getElementById('preview')
-    previewContainer.innerHTML = ''
-    const image = new Image()
-    image.src = this.photo
-    image.classList.add('object-cover', 'rounded-xl', 'h-full', 'w-full')
-    previewContainer.appendChild(image)
+    await this.getProduct()
+    setInterval(this.getProduct, 2000)
   },
   methods: {
     isMobile() {
@@ -275,6 +262,23 @@ export default {
       } else {
         return false
       }
+    },
+    async getProduct() {
+      const productId = this.$route.params.id
+      const response = await axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
+      const product = response.data
+      this.name = product.name
+      this.description = product.description
+      this.value = product.price.toString()
+      this.department_id = product.department_id.toString()
+      this.quantity = product.quantity.toString()
+      this.photo = product.image
+      const previewContainer = document.getElementById('preview')
+      previewContainer.innerHTML = ''
+      const image = new Image()
+      image.src = this.photo
+      image.classList.add('object-cover', 'rounded-xl', 'h-full', 'w-full')
+      previewContainer.appendChild(image)
     },
     async updateProduct() {
       const productId = this.$route.params.id
