@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:px-6 w-full">
+  <div class="sm:px-6 w-full" v-if="isLandscape && !isMobile()">
     <div class="px-4 md:px-10 py-4 md:py-7">
       <div class="flex items-center justify-between">
         <p
@@ -275,6 +275,13 @@
       </div>
     </div>
   </div>
+  <div v-else class="w-full min-h-screen flex flex-col justify-center items-center gap-10">
+    <img
+      src="https://i.postimg.cc/KvpF903V/refresh-8169410.png"
+      class="rotate-phone w-24"
+      alt=""
+    />Rotate your phone to see this page
+  </div>
 </template>
 
 <script>
@@ -287,8 +294,15 @@ export default {
     return {
       products: [],
       departments: [],
-      isModalVisible: false
+      isModalVisible: false,
+      isLandscape: window.innerWidth > window.innerHeight
     }
+  },
+  created() {
+    window.addEventListener('resize', this.checkOrientation)
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.checkOrientation)
   },
 
   mounted() {
@@ -313,6 +327,16 @@ export default {
       })
   },
   methods: {
+    isMobile() {
+      if (screen.width <= 680) {
+        return true
+      } else {
+        return false
+      }
+    },
+    checkOrientation() {
+      this.isLandscape = window.innerWidth > window.innerHeight
+    },
     ExportToExcel(type, fn, dl) {
       var elt = document.getElementById('tbl_exporttable_to_xls')
       var wb = XLSX.utils.table_to_book(elt, { sheet: 'Estoque' })
@@ -373,6 +397,18 @@ export default {
   width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.rotate-phone {
+  animation: rotate 2s linear infinite;
 }
 
 @media only screen and (max-width: 600px) {
