@@ -300,6 +300,7 @@ export default {
   },
   created() {
     window.addEventListener('resize', this.checkOrientation)
+    window.addEventListener('orientationchange', (this.isLandscape = true))
   },
   unmounted() {
     window.removeEventListener('resize', this.checkOrientation)
