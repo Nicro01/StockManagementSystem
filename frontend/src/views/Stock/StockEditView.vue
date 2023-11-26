@@ -252,7 +252,7 @@ export default {
       })
   },
   async created() {
-    await this.getProduct()
+    this.getProduct()
     setInterval(this.getProduct, 2000)
   },
   methods: {
@@ -265,7 +265,7 @@ export default {
     },
     async getProduct() {
       const productId = this.$route.params.id
-      const response = await axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
+      const response = axios.get(`https://tmktlondrina.com.br/api/products/${productId}`)
       const product = response.data
       this.name = product.name
       this.description = product.description
