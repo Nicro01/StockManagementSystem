@@ -308,7 +308,6 @@ export default {
 
   mounted() {
     this.fetchData()
-    setInterval(this.fetchData, 2000)
   },
   methods: {
     fetchData() {
