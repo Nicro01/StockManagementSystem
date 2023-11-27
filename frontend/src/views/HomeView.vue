@@ -56,7 +56,7 @@
             </RouterLink>
           </span>
           <a
-            href="#_"
+            href="https://github.com/Nicro01/StockManagementSystem"
             class="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg bg-gray-100 rounded-2xl sm:w-auto sm:mb-0"
           >
             Learn More
