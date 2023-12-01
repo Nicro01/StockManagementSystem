@@ -312,7 +312,7 @@ export default {
   methods: {
     fetchData() {
       axios
-        .get('https://tmktlondrina.com.br/api/products')
+        .get('http://localhost:8000/api/products')
         .then((response) => {
           console.log(response.data)
           this.products = response.data
@@ -322,7 +322,7 @@ export default {
         })
 
       axios
-        .get('https://tmktlondrina.com.br/api/departments')
+        .get('http://localhost:8000/api/departments')
         .then((response) => {
           console.log(response.data)
           this.departments = response.data
@@ -356,12 +356,9 @@ export default {
     },
     async updateProductQuantity(productId, quantity) {
       try {
-        const response = await axios.put(
-          `https://tmktlondrina.com.br/api/products/${productId}/quantity`,
-          {
-            quantity: quantity
-          }
-        )
+        const response = await axios.put(`http://localhost:8000/api/products/${productId}/quantity`, {
+          quantity: quantity
+        })
         this.products.forEach((product) => {
           if (product.id === productId) {
             product.quantity = quantity
@@ -374,12 +371,9 @@ export default {
     },
     async updateProductStatus(productId, newStatus) {
       try {
-        const response = await axios.put(
-          `https://tmktlondrina.com.br/api/products/${productId}/status`,
-          {
-            status: newStatus
-          }
-        )
+        const response = await axios.put(`http://localhost:8000/api/products/${productId}/status`, {
+          status: newStatus
+        })
         this.products.forEach((product) => {
           if (product.id === productId) {
             product.status = newStatus

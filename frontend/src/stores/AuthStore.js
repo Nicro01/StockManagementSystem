@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(userDetails) {
       try {
-        const response = await axios.post('https://tmktlondrina.com.br/api/login', userDetails, {
+        const response = await axios.post('http://localhost:8000/api/login', userDetails, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async register(userDetails) {
       try {
-        const response = await axios.post('https://tmktlondrina.com.br/api/register', userDetails, {
+        const response = await axios.post('http://localhost:8000/api/register', userDetails, {
           headers: {
             'Content-Type': 'application/json'
           }

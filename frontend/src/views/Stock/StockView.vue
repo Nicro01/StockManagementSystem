@@ -15,7 +15,7 @@ export default {
   methods: {
     fetchData() {
       axios
-        .get('https://tmktlondrina.com.br/api/products')
+        .get('http://localhost:8000/api/products')
         .then((response) => {
           console.log(response.data)
           this.products = response.data
@@ -26,7 +26,7 @@ export default {
     },
     deleteProduct(id) {
       axios
-        .delete(`https://tmktlondrina.com.br/api/products/${id}`)
+        .delete(`http://localhost:8000/api/products/${id}`)
         .then((response) => {
           console.log(response.data)
           window.location.href = '/stock'
